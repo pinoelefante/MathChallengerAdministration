@@ -783,6 +783,56 @@ public class AdministrationFrame extends JFrame {
 				}
 			}
 		});
+		btnEmailSalvaTutti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<String> params=new ArrayList<String>();
+				if(!mailNewEmail.getText().trim().isEmpty()){
+					params.add("email");
+					params.add(mailNewEmail.getText().trim());
+				}
+				if(!mailNewUsername.getText().trim().isEmpty()){
+					params.add("username");
+					params.add(mailNewUsername.getText().trim());
+				}
+				if(!mailNewPass.getText().trim().isEmpty()){
+					params.add("password");
+					params.add(mailNewPass.getText().trim());
+				}
+				if(!mailNewNomeVisualizzato.getText().trim().isEmpty()){
+					params.add("nome-visualizzato");
+					params.add(mailNewNomeVisualizzato.getText().trim());
+				}
+				if(!mailNewSMTP.getText().trim().isEmpty()){
+					params.add("smtp-server");
+					params.add(mailNewSMTP.getText().trim());
+				}
+				if(!mailNewSMTPPort.getText().trim().isEmpty()){
+					if(isNumeric(mailNewSMTPPort.getText().trim())){
+						params.add("smtp-port");
+						params.add(mailNewSMTPPort.getText().trim());
+					}
+				}
+				if(mailSSLBox.getSelectedItem()!=null){
+					boolean b=(boolean) mailSSLBox.getSelectedItem();
+					params.add("ssl");
+					params.add(b+"");
+				}
+				if(params.size()>0){
+					Messaggio m=CommunicationMessageCreator.getInstance().createEmailChangeValues(params);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Opzioni email aggiornate");
+						}
+						else
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Opzioni email non aggiornate");
+					} 
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 	
 	private boolean isNumeric(String s){
