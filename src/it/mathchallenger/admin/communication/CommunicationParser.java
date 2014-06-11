@@ -94,4 +94,15 @@ public class CommunicationParser {
 		}
 		return false;
 	}
+	public boolean parseGeneric(Messaggio m){
+		String[] prop=m.getResponse().split(";");
+		if(prop.length>0){
+			String[]kv=prop[0].split("=");
+			if(kv.length==2){
+				if(kv[1].compareTo("OK")==0)
+					return true;
+			}
+		}
+		return false;
+	}
 }

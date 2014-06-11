@@ -80,6 +80,7 @@ public class Communication {
 			if (System.currentTimeMillis() > timeout)
 				throw new IOException("Timeout error");
 		}
+		System.out.println(r);
 		return r;
 	}
 
@@ -108,6 +109,7 @@ public class Communication {
 		if(out==null)
 			throw new IOException("ConnectionWriter null");
 		out.write((s + "\n").getBytes());
+		System.out.println(s);
 		out.flush();
 	}
 }

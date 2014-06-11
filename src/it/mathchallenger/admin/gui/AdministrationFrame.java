@@ -39,7 +39,7 @@ public class AdministrationFrame extends JFrame {
 	private JTextField regPassText;
 	private JTextField regEmailText;
 	private JTextField deleteUsernameText;
-	private JTextField textField_3;
+	private JTextField versionNuovaVersione;
 	private JTextField rankingNewUsername;
 	private JTextField rankingNewPassword;
 	private JTextField rankingNewUserAgent;
@@ -47,14 +47,14 @@ public class AdministrationFrame extends JFrame {
 	private JTextField rankingNewSleepTime;
 	private JTextField rankingNewURLRanking;
 	private JTextField rankingNewSleepTimeError;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JTextField textField_18;
+	private JTextField adminNewUsername;
+	private JTextField adminNewPass;
+	private JTextField mailNewEmail;
+	private JTextField mailNewUsername;
+	private JTextField mailNewPass;
+	private JTextField mailNewNomeVisualizzato;
+	private JTextField mailNewSMTP;
+	private JTextField mailNewSMTPPort;
 
 	private Communication comm=Communication.getInstance();
 	private JButton btnCaricaUtenti;
@@ -62,8 +62,8 @@ public class AdministrationFrame extends JFrame {
 	private JLabel lblNumUtentiLoggati;
 	private JPanel listUtentiLoggatiPanel;
 	private JTextField modificaIDUtente;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField modificaPassword;
+	private JTextField modificaEmail;
 	private JLabel lblNomeutenteselezionato;
 	private JTextField banID;
 	private JTextField banUsername;
@@ -72,6 +72,20 @@ public class AdministrationFrame extends JFrame {
 	private JComboBox<Integer> versioniAbilitateChk;
 	private JButton btnForzaAggiornamentoClassifica;
 	private JButton btnRicaricaRankingProperties;
+	private JButton btnRimuoviVersione;
+	private JButton btnAggiungiVersione;
+	private JButton adminChange;
+	private JButton btnRicaricaEmailProperties;
+	private JComboBox<Boolean> mailSSLBox;
+	private JButton btnRegistraUtente;
+	private JButton btnCancellaUtenteByID;
+	private JButton btnCancellaUtenteByUsername;
+	private JButton btnModificaPasswordUtente;
+	private JButton btnModificaEmailUtente;
+	private JButton btnBannaUtenteID;
+	private JButton btnBannaUtenteUsername;
+	private JButton btnRankingSalvaTutti;
+	private JButton btnEmailSalvaTutti;
 	/**
 	 * Create the frame.
 	 */
@@ -155,8 +169,8 @@ public class AdministrationFrame extends JFrame {
 		panel_6.add(regEmailText);
 		regEmailText.setColumns(10);
 		
-		JButton btnOk = new JButton("OK");
-		panel_6.add(btnOk);
+		btnRegistraUtente = new JButton("OK");
+		panel_6.add(btnRegistraUtente);
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new TitledBorder(null, "Cancella Account", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -174,8 +188,8 @@ public class AdministrationFrame extends JFrame {
 		panel_23.add(deleteID);
 		deleteID.setColumns(20);
 		
-		JButton btnOk_21 = new JButton("OK");
-		panel_23.add(btnOk_21);
+		btnCancellaUtenteByID = new JButton("OK");
+		panel_23.add(btnCancellaUtenteByID);
 		
 		JPanel panel_22 = new JPanel();
 		panel_7.add(panel_22);
@@ -187,8 +201,8 @@ public class AdministrationFrame extends JFrame {
 		panel_22.add(deleteUsernameText);
 		deleteUsernameText.setColumns(20);
 		
-		JButton btnOk_1 = new JButton("OK");
-		panel_22.add(btnOk_1);
+		btnCancellaUtenteByUsername = new JButton("OK");
+		panel_22.add(btnCancellaUtenteByUsername);
 		
 		JPanel panel_14 = new JPanel();
 		panel_14.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Modifica Utente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -212,12 +226,12 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblPassword_1 = new JLabel("Password");
 		panel_15.add(lblPassword_1);
 		
-		textField_1 = new JTextField();
-		panel_15.add(textField_1);
-		textField_1.setColumns(10);
+		modificaPassword = new JTextField();
+		panel_15.add(modificaPassword);
+		modificaPassword.setColumns(10);
 		
-		JButton btnOk_18 = new JButton("OK");
-		panel_15.add(btnOk_18);
+		btnModificaPasswordUtente = new JButton("OK");
+		panel_15.add(btnModificaPasswordUtente);
 		
 		JPanel panel_17 = new JPanel();
 		panel_14.add(panel_17);
@@ -231,12 +245,12 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblEmail_1 = new JLabel("Email");
 		panel_18.add(lblEmail_1);
 		
-		textField_2 = new JTextField();
-		panel_18.add(textField_2);
-		textField_2.setColumns(10);
+		modificaEmail = new JTextField();
+		panel_18.add(modificaEmail);
+		modificaEmail.setColumns(10);
 		
-		JButton btnOk_19 = new JButton("OK");
-		panel_18.add(btnOk_19);
+		btnModificaEmailUtente = new JButton("OK");
+		panel_18.add(btnModificaEmailUtente);
 		
 		JPanel panel_19 = new JPanel();
 		panel_19.setBorder(new TitledBorder(null, "Banna Utente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -254,8 +268,8 @@ public class AdministrationFrame extends JFrame {
 		panel_21.add(banID);
 		banID.setColumns(10);
 		
-		JButton btnOk_17 = new JButton("OK");
-		panel_21.add(btnOk_17);
+		btnBannaUtenteID = new JButton("OK");
+		panel_21.add(btnBannaUtenteID);
 		
 		JPanel panel_20 = new JPanel();
 		panel_19.add(panel_20);
@@ -267,8 +281,8 @@ public class AdministrationFrame extends JFrame {
 		panel_20.add(banUsername);
 		banUsername.setColumns(10);
 		
-		JButton btnOk_20 = new JButton("OK");
-		panel_20.add(btnOk_20);
+		btnBannaUtenteUsername = new JButton("OK");
+		panel_20.add(btnBannaUtenteUsername);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Ranking", null, panel_1, null);
@@ -287,10 +301,6 @@ public class AdministrationFrame extends JFrame {
 		panel_1.add(rankingNewUsername);
 		rankingNewUsername.setColumns(10);
 		
-		JButton btnOk_2 = new JButton("OK");
-		btnOk_2.setBounds(265, 16, 89, 23);
-		panel_1.add(btnOk_2);
-		
 		JLabel lblNuovaPassword = new JLabel("Nuova Password");
 		lblNuovaPassword.setBounds(10, 50, 100, 14);
 		panel_1.add(lblNuovaPassword);
@@ -299,10 +309,6 @@ public class AdministrationFrame extends JFrame {
 		rankingNewPassword.setBounds(111, 47, 140, 20);
 		panel_1.add(rankingNewPassword);
 		rankingNewPassword.setColumns(10);
-		
-		JButton btnOk_3 = new JButton("OK");
-		btnOk_3.setBounds(265, 46, 89, 23);
-		panel_1.add(btnOk_3);
 		
 		JLabel lblNuovoUseragebt = new JLabel("Nuovo User-Agent");
 		lblNuovoUseragebt.setBounds(10, 80, 100, 14);
@@ -313,10 +319,6 @@ public class AdministrationFrame extends JFrame {
 		panel_1.add(rankingNewUserAgent);
 		rankingNewUserAgent.setColumns(10);
 		
-		JButton btnOk_4 = new JButton("OK");
-		btnOk_4.setBounds(265, 76, 89, 23);
-		panel_1.add(btnOk_4);
-		
 		JLabel lblNuovoUrlRanking = new JLabel("Nuovo URL Publish");
 		lblNuovoUrlRanking.setBounds(10, 110, 100, 14);
 		panel_1.add(lblNuovoUrlRanking);
@@ -326,10 +328,6 @@ public class AdministrationFrame extends JFrame {
 		panel_1.add(rankingNewURLPublish);
 		rankingNewURLPublish.setColumns(10);
 		
-		JButton btnOk_5 = new JButton("OK");
-		btnOk_5.setBounds(265, 106, 89, 23);
-		panel_1.add(btnOk_5);
-		
 		JLabel lblNuovoTimesleep = new JLabel("Nuovo TIME_SLEEP");
 		lblNuovoTimesleep.setBounds(10, 140, 100, 14);
 		panel_1.add(lblNuovoTimesleep);
@@ -338,10 +336,6 @@ public class AdministrationFrame extends JFrame {
 		rankingNewSleepTime.setBounds(111, 137, 140, 20);
 		panel_1.add(rankingNewSleepTime);
 		rankingNewSleepTime.setColumns(10);
-		
-		JButton btnOk_6 = new JButton("OK");
-		btnOk_6.setBounds(265, 136, 89, 23);
-		panel_1.add(btnOk_6);
 		
 		btnForzaAggiornamentoClassifica = new JButton("Forza aggiornamento classifica");
 		btnForzaAggiornamentoClassifica.setBounds(282, 289, 179, 23);
@@ -356,10 +350,6 @@ public class AdministrationFrame extends JFrame {
 		panel_1.add(rankingNewURLRanking);
 		rankingNewURLRanking.setColumns(10);
 		
-		JButton btnOk_7 = new JButton("OK");
-		btnOk_7.setBounds(265, 196, 89, 23);
-		panel_1.add(btnOk_7);
-		
 		JLabel lblTimesleeperror = new JLabel("TIME_SLEEP_ERROR");
 		lblTimesleeperror.setBounds(10, 170, 100, 14);
 		panel_1.add(lblTimesleeperror);
@@ -369,13 +359,9 @@ public class AdministrationFrame extends JFrame {
 		panel_1.add(rankingNewSleepTimeError);
 		rankingNewSleepTimeError.setColumns(10);
 		
-		JButton btnOk_8 = new JButton("OK");
-		btnOk_8.setBounds(265, 166, 89, 23);
-		panel_1.add(btnOk_8);
-		
-		JButton btnSalvaTutti = new JButton("Salva tutti");
-		btnSalvaTutti.setBounds(265, 240, 89, 23);
-		panel_1.add(btnSalvaTutti);
+		btnRankingSalvaTutti = new JButton("Salva tutti");
+		btnRankingSalvaTutti.setBounds(142, 228, 89, 23);
+		panel_1.add(btnRankingSalvaTutti);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Server", null, panel_2, null);
@@ -413,11 +399,11 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblVersioniAbilitate = new JLabel("Versioni abilitate");
 		panel_9.add(lblVersioniAbilitate);
 		
-		versioniAbilitateChk = new JComboBox();
+		versioniAbilitateChk = new JComboBox<Integer>();
 		panel_9.add(versioniAbilitateChk);
 		
-		JButton btnRimuovi = new JButton("Rimuovi");
-		panel_9.add(btnRimuovi);
+		btnRimuoviVersione = new JButton("Rimuovi");
+		panel_9.add(btnRimuoviVersione);
 		
 		btnCaricaVersioni = new JButton("Carica Versioni");
 		panel_9.add(btnCaricaVersioni);
@@ -430,12 +416,12 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblNuovaVersione = new JLabel("Nuova versione");
 		panel_10.add(lblNuovaVersione);
 		
-		textField_3 = new JTextField();
-		panel_10.add(textField_3);
-		textField_3.setColumns(5);
+		versionNuovaVersione = new JTextField();
+		panel_10.add(versionNuovaVersione);
+		versionNuovaVersione.setColumns(5);
 		
-		JButton btnAggiungi = new JButton("Aggiungi");
-		panel_10.add(btnAggiungi);
+		btnAggiungiVersione = new JButton("Aggiungi");
+		panel_10.add(btnAggiungiVersione);
 		
 		JPanel panel_11 = new JPanel();
 		panel_11.setBorder(new TitledBorder(null, "Cambia dati account amministratore", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -446,27 +432,27 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblNuovoUsername_1 = new JLabel("Nuovo Username");
 		panel_11.add(lblNuovoUsername_1);
 		
-		textField_11 = new JTextField();
-		panel_11.add(textField_11);
-		textField_11.setColumns(10);
+		adminNewUsername = new JTextField();
+		panel_11.add(adminNewUsername);
+		adminNewUsername.setColumns(10);
 		
 		JLabel lblNuovaPassword_1 = new JLabel("Nuova Password");
 		panel_11.add(lblNuovaPassword_1);
 		
-		textField_12 = new JTextField();
-		panel_11.add(textField_12);
-		textField_12.setColumns(10);
+		adminNewPass = new JTextField();
+		panel_11.add(adminNewPass);
+		adminNewPass.setColumns(10);
 		
-		JButton btnOk_9 = new JButton("OK");
-		panel_11.add(btnOk_9);
+		adminChange = new JButton("OK");
+		panel_11.add(adminChange);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Email", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		JButton btnRicaricaEmailproperties = new JButton("Ricarica email.properties");
-		btnRicaricaEmailproperties.setBounds(260, 289, 149, 23);
-		panel_3.add(btnRicaricaEmailproperties);
+		btnRicaricaEmailProperties = new JButton("Ricarica email.properties");
+		btnRicaricaEmailProperties.setBounds(260, 289, 149, 23);
+		panel_3.add(btnRicaricaEmailProperties);
 		
 		JLabel lblNuovoIndirizzoEmail = new JLabel("Nuovo indirizzo email");
 		lblNuovoIndirizzoEmail.setBounds(10, 10, 120, 14);
@@ -496,71 +482,46 @@ public class AdministrationFrame extends JFrame {
 		lblUtilizzoSsl.setBounds(10, 190, 120, 14);
 		panel_3.add(lblUtilizzoSsl);
 		
-		textField_13 = new JTextField();
-		textField_13.setBounds(121, 7, 140, 20);
-		panel_3.add(textField_13);
-		textField_13.setColumns(10);
+		mailNewEmail = new JTextField();
+		mailNewEmail.setBounds(121, 7, 140, 20);
+		panel_3.add(mailNewEmail);
+		mailNewEmail.setColumns(10);
 		
-		textField_14 = new JTextField();
-		textField_14.setBounds(121, 37, 140, 20);
-		panel_3.add(textField_14);
-		textField_14.setColumns(10);
+		mailNewUsername = new JTextField();
+		mailNewUsername.setBounds(121, 37, 140, 20);
+		panel_3.add(mailNewUsername);
+		mailNewUsername.setColumns(10);
 		
-		textField_15 = new JTextField();
-		textField_15.setBounds(121, 67, 140, 20);
-		panel_3.add(textField_15);
-		textField_15.setColumns(10);
+		mailNewPass = new JTextField();
+		mailNewPass.setBounds(121, 67, 140, 20);
+		panel_3.add(mailNewPass);
+		mailNewPass.setColumns(10);
 		
-		textField_16 = new JTextField();
-		textField_16.setBounds(121, 97, 140, 20);
-		panel_3.add(textField_16);
-		textField_16.setColumns(10);
+		mailNewNomeVisualizzato = new JTextField();
+		mailNewNomeVisualizzato.setBounds(121, 97, 140, 20);
+		panel_3.add(mailNewNomeVisualizzato);
+		mailNewNomeVisualizzato.setColumns(10);
 		
-		textField_17 = new JTextField();
-		textField_17.setBounds(121, 130, 140, 20);
-		panel_3.add(textField_17);
-		textField_17.setColumns(10);
+		mailNewSMTP = new JTextField();
+		mailNewSMTP.setBounds(121, 130, 140, 20);
+		panel_3.add(mailNewSMTP);
+		mailNewSMTP.setColumns(10);
 		
-		textField_18 = new JTextField();
-		textField_18.setBounds(121, 157, 140, 20);
-		panel_3.add(textField_18);
-		textField_18.setColumns(10);
+		mailNewSMTPPort = new JTextField();
+		mailNewSMTPPort.setBounds(121, 157, 140, 20);
+		panel_3.add(mailNewSMTPPort);
+		mailNewSMTPPort.setColumns(10);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(121, 187, 140, 20);
-		panel_3.add(comboBox_1);
+		mailSSLBox = new JComboBox<Boolean>();
+		mailSSLBox.setBounds(121, 187, 140, 20);
+		mailSSLBox.addItem(null);
+		mailSSLBox.addItem(Boolean.TRUE);
+		mailSSLBox.addItem(Boolean.FALSE);
+		panel_3.add(mailSSLBox);
 		
-		JButton btnOk_10 = new JButton("OK");
-		btnOk_10.setBounds(268, 6, 89, 23);
-		panel_3.add(btnOk_10);
-		
-		JButton btnOk_11 = new JButton("OK");
-		btnOk_11.setBounds(268, 36, 89, 23);
-		panel_3.add(btnOk_11);
-		
-		JButton btnOk_12 = new JButton("OK");
-		btnOk_12.setBounds(268, 66, 89, 23);
-		panel_3.add(btnOk_12);
-		
-		JButton btnOk_13 = new JButton("OK");
-		btnOk_13.setBounds(268, 96, 89, 23);
-		panel_3.add(btnOk_13);
-		
-		JButton btnOk_14 = new JButton("OK");
-		btnOk_14.setBounds(268, 129, 89, 23);
-		panel_3.add(btnOk_14);
-		
-		JButton btnOk_15 = new JButton("OK");
-		btnOk_15.setBounds(268, 156, 89, 23);
-		panel_3.add(btnOk_15);
-		
-		JButton btnOk_16 = new JButton("OK");
-		btnOk_16.setBounds(268, 186, 89, 23);
-		panel_3.add(btnOk_16);
-		
-		JButton btnSalvaTutti_1 = new JButton("Salva tutti");
-		btnSalvaTutti_1.setBounds(268, 220, 89, 23);
-		panel_3.add(btnSalvaTutti_1);
+		btnEmailSalvaTutti = new JButton("Salva tutti");
+		btnEmailSalvaTutti.setBounds(148, 218, 89, 23);
+		panel_3.add(btnEmailSalvaTutti);
 		
 		addWindowListener();
 		addListener();
@@ -629,7 +590,6 @@ public class AdministrationFrame extends JFrame {
 				Messaggio m=CommunicationMessageCreator.getInstance().createVersioniAbilitate();
 				try {
 					comm.send(m);
-					System.out.println(m.getResponse());
 					ArrayList<Integer> l=CommunicationParser.getInstance().parseVersioniAbilitate(m);
 					versioniAbilitateChk.removeAllItems();
 					for(Integer i:l){
@@ -646,7 +606,6 @@ public class AdministrationFrame extends JFrame {
 				Messaggio m=CommunicationMessageCreator.getInstance().createRankingReload();
 				try {
 					comm.send(m);
-					System.out.println(m.getResponse());
 					boolean r=CommunicationParser.getInstance().parseRankingReload(m);
 					JOptionPane.showMessageDialog(AdministrationFrame.this, r?"Ranking.properties caricato":m.getErrorMessage());
 				}
@@ -655,5 +614,184 @@ public class AdministrationFrame extends JFrame {
 				}
 			}
 		});
+		btnRimuoviVersione.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Integer versione=(Integer) versioniAbilitateChk.getSelectedItem();
+				if(versione!=null){
+					Messaggio m=CommunicationMessageCreator.getInstance().createVersionRemove(versione);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							versioniAbilitateChk.removeItemAt(versioniAbilitateChk.getSelectedIndex());
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Versione rimossa");
+						}
+						else 
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Versione non rimossa");
+					} 
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		btnAggiungiVersione.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Integer ver=Integer.parseInt(versionNuovaVersione.getText());
+					Messaggio m=CommunicationMessageCreator.getInstance().createVersionAdd(ver);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							versioniAbilitateChk.addItem(ver);
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Versione aggiunta");
+						}
+						else
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Versione non aggiunta");
+					} 
+					catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				catch(NumberFormatException e1){
+					JOptionPane.showMessageDialog(AdministrationFrame.this, "La versione deve essere un numero intero");
+				}
+			}
+		});
+		btnForzaAggiornamentoClassifica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Messaggio m=CommunicationMessageCreator.getInstance().createRankingForceUpdate();
+				try {
+					comm.send(m);
+					if(CommunicationParser.getInstance().parseGeneric(m)){
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Classifica aggiornata");
+					}
+					else
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Classifica non aggiornata");
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnCancellaUtenteByID.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id=Integer.parseInt(deleteID.getText());
+				int r=JOptionPane.showConfirmDialog(AdministrationFrame.this, "Sei sicuro di voler eliminare l'account? ("+id+")");
+				if(r==JOptionPane.YES_OPTION){
+					Messaggio m=CommunicationMessageCreator.getInstance().createUserDeleteByID(id);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente cancellato");
+						}
+						else{
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente non cancellato");
+						}
+					} 
+					catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnCancellaUtenteByUsername.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String username=deleteUsernameText.getText().trim();
+				int r=JOptionPane.showConfirmDialog(AdministrationFrame.this, "Sei sicuro di voler eliminare l'account? ("+username+")");
+				if(r==JOptionPane.YES_OPTION){
+					Messaggio m=CommunicationMessageCreator.getInstance().createUserDeleteByUsername(username);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente cancellato");
+						}
+						else{
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente non cancellato");
+						}
+					} 
+					catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		btnRicaricaEmailProperties.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Messaggio m=CommunicationMessageCreator.getInstance().createEmailReload();
+				try {
+					comm.send(m);
+					if(CommunicationParser.getInstance().parseGeneric(m)){
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "File properties ricaricato");
+					}
+					else {
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "File properties non ricaricato");
+					}
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnRankingSalvaTutti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> params=new ArrayList<>();
+				if(!rankingNewUsername.getText().trim().isEmpty()){
+					params.add("Username");
+					params.add(rankingNewUsername.getText().trim());
+				}
+				if(!rankingNewPassword.getText().trim().isEmpty()){
+					params.add("");
+					params.add(rankingNewPassword.getText().trim());
+				}
+				if(!rankingNewURLPublish.getText().trim().isEmpty()){
+					params.add("URL_Publish");
+					params.add(rankingNewURLPublish.getText().trim());
+				}
+				if(!rankingNewURLRanking.getText().trim().isEmpty()){
+					params.add("URL_Ranking");
+					params.add(rankingNewURLRanking.getText().trim());
+				}
+				if(!rankingNewSleepTime.getText().trim().isEmpty()){
+					if(isNumeric(rankingNewSleepTime.getText().trim())){
+						params.add("TIME_SLEEP");
+						params.add(rankingNewSleepTime.getText().trim());
+					}
+				}
+				if(!rankingNewSleepTimeError.getText().trim().isEmpty()){
+					if(isNumeric(rankingNewSleepTimeError.getText().trim())){
+						params.add("TIME_SLEEP_ERROR");
+						params.add(rankingNewSleepTimeError.getText().trim());
+					}
+				}
+				if(!rankingNewUserAgent.getText().trim().isEmpty()){
+					params.add("User-Agent");
+					params.add(rankingNewUserAgent.getText().trim());
+				}
+				if(params.size()>0){
+					Messaggio m=CommunicationMessageCreator.getInstance().createRankingChangeValues(params);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Aggiornamento riuscito");
+						}
+						else
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Aggiornamento non riuscito");
+					} 
+					catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+	}
+	
+	private boolean isNumeric(String s){
+		try{
+			Integer.parseInt(s);
+			return true;
+		}
+		catch(NumberFormatException e){
+			return false;
+		}
 	}
 }
