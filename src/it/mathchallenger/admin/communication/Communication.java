@@ -12,6 +12,7 @@ public class Communication {
 
 	private Socket			   socket;
 	private final static String  HOSTNAME	  = "54.76.113.193"; //ip del server
+	//private final static String  HOSTNAME	  = "5.231.68.209"; //host1free
 	private final static int	 HOSTNAME_PORT = 60000;
 	private static int		   TIMEOUT_READ  = 10000;		// 10 secondi timeout
 
