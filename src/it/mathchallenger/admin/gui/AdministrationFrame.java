@@ -86,6 +86,8 @@ public class AdministrationFrame extends JFrame {
 	private JButton btnBannaUtenteUsername;
 	private JButton btnRankingSalvaTutti;
 	private JButton btnEmailSalvaTutti;
+	private JButton btnDebugStatus;
+	private JComboBox<Boolean> cmbdebug;
 	/**
 	 * Create the frame.
 	 */
@@ -523,6 +525,20 @@ public class AdministrationFrame extends JFrame {
 		btnEmailSalvaTutti.setBounds(148, 218, 89, 23);
 		panel_3.add(btnEmailSalvaTutti);
 		
+		JLabel lblDebug = new JLabel("Debug ");
+		lblDebug.setBounds(345, 10, 46, 14);
+		panel_3.add(lblDebug);
+		
+		cmbdebug = new JComboBox<Boolean>();
+		cmbdebug.addItem(Boolean.TRUE);
+		cmbdebug.addItem(Boolean.FALSE);
+		cmbdebug.setBounds(381, 7, 70, 20);
+		panel_3.add(cmbdebug);
+		
+		btnDebugStatus = new JButton("OK");
+		btnDebugStatus.setBounds(461, 6, 89, 23);
+		panel_3.add(btnDebugStatus);
+		
 		addWindowListener();
 		addListener();
 	}
@@ -830,6 +846,23 @@ public class AdministrationFrame extends JFrame {
 					catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
+			}
+		});
+		btnDebugStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				boolean b=(boolean) cmbdebug.getSelectedItem();
+				Messaggio m=CommunicationMessageCreator.getInstance().createEmailDebugStatus(b);
+				try {
+					comm.send(m);
+					if(CommunicationParser.getInstance().parseGeneric(m)){
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Stato debug email cambiato");
+					}
+					else
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Opzioni email non aggiornate");
+				}
+				catch(IOException e){
+					e.printStackTrace();
 				}
 			}
 		});

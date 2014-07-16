@@ -62,4 +62,8 @@ public class CommunicationMessageCreator {
 		}
 		return new Messaggio(str.toString());
 	}
+
+	public Messaggio createEmailDebugStatus(boolean b) {
+		return new Messaggio("email_debug "+b);
+	}
 }
