@@ -40,13 +40,13 @@ public class LoginFrame extends JFrame {
 	 */
 	private static Communication comm;
 	
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(final String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		comm=Communication.getInstance();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginFrame frame = new LoginFrame();
+					LoginFrame frame = new LoginFrame(args);
 					frame.setVisible(true);
 				}
 				catch (Exception e) {
@@ -59,7 +59,12 @@ public class LoginFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginFrame() {
+	public LoginFrame(String[] args) {
+		String username = "",password="";
+		if(args!=null && args.length==2){
+			username=args[0];
+			password=args[1];
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 155);
 		contentPane = new JPanel();
@@ -75,6 +80,7 @@ public class LoginFrame extends JFrame {
 		txt_username.setBounds(94, 11, 170, 20);
 		panel.add(txt_username);
 		txt_username.setColumns(10);
+		txt_username.setText(username);
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setBounds(10, 14, 74, 14);
@@ -87,6 +93,7 @@ public class LoginFrame extends JFrame {
 		txt_password = new JPasswordField();
 		txt_password.setBounds(94, 42, 170, 20);
 		panel.add(txt_password);
+		txt_password.setText(password);
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(94, 73, 89, 23);
