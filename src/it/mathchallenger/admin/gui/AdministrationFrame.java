@@ -36,7 +36,6 @@ public class AdministrationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField regUsernameText;
-	private JTextField regPassText;
 	private JTextField regEmailText;
 	private JTextField deleteUsernameText;
 	private JTextField versionNuovaVersione;
@@ -156,13 +155,6 @@ public class AdministrationFrame extends JFrame {
 		regUsernameText = new JTextField();
 		panel_6.add(regUsernameText);
 		regUsernameText.setColumns(10);
-		
-		JLabel lblPassword = new JLabel("Password");
-		panel_6.add(lblPassword);
-		
-		regPassText = new JTextField();
-		panel_6.add(regPassText);
-		regPassText.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
 		panel_6.add(lblEmail);
@@ -864,6 +856,28 @@ public class AdministrationFrame extends JFrame {
 				catch(IOException e){
 					e.printStackTrace();
 				}
+			}
+		});
+		btnRegistraUtente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String user=regUsernameText.getText().trim();
+				String email=regUsernameText.getText().trim();
+				if(user.length()>0 && email.length()>0){
+					Messaggio m=CommunicationMessageCreator.getInstance().createUserAdd(user,email);
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente registrato");
+						}
+						else
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente non registrato");
+					}
+					catch(Exception e1){
+						e1.printStackTrace();
+					}
+				}
+				else 
+					JOptionPane.showMessageDialog(AdministrationFrame.this, "Compila tutti i campi");
 			}
 		});
 	}

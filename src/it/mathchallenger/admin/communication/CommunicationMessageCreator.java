@@ -66,4 +66,8 @@ public class CommunicationMessageCreator {
 	public Messaggio createEmailDebugStatus(boolean b) {
 		return new Messaggio("email_debug "+b);
 	}
+
+	public Messaggio createUserAdd(String user, String email) {
+		return new Messaggio("user_add "+user+" "+email);
+	}
 }
