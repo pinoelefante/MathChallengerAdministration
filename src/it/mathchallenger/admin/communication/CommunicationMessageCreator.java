@@ -70,4 +70,8 @@ public class CommunicationMessageCreator {
 	public Messaggio createUserAdd(String user, String email) {
 		return new Messaggio("user_add "+user+" "+email);
 	}
+
+	public Messaggio createServerRestart() {
+		return new Messaggio("server_restart");
+	}
 }

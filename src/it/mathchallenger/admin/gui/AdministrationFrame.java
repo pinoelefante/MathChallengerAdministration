@@ -87,6 +87,7 @@ public class AdministrationFrame extends JFrame {
 	private JButton btnEmailSalvaTutti;
 	private JButton btnDebugStatus;
 	private JComboBox<Boolean> cmbdebug;
+	private JButton btnRiavviaServer;
 	/**
 	 * Create the frame.
 	 */
@@ -367,7 +368,7 @@ public class AdministrationFrame extends JFrame {
 		panel_2.add(panel_8);
 		panel_8.setLayout(null);
 		
-		JButton btnRiavviaServer = new JButton("Riavvia Server");
+		btnRiavviaServer = new JButton("Riavvia Server");
 		btnRiavviaServer.setBounds(10, 27, 103, 23);
 		panel_8.add(btnRiavviaServer);
 		
@@ -878,6 +879,27 @@ public class AdministrationFrame extends JFrame {
 				}
 				else 
 					JOptionPane.showMessageDialog(AdministrationFrame.this, "Compila tutti i campi");
+			}
+		});
+		btnRiavviaServer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JOptionPane.showConfirmDialog(AdministrationFrame.this, "Sei sicuro di voler riavviare il server?")==JOptionPane.YES_OPTION){
+					Messaggio m = CommunicationMessageCreator.getInstance().createServerRestart();
+					try {
+						comm.send(m);
+						if(CommunicationParser.getInstance().parseGeneric(m)){
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Server riavviato");
+							comm.close();
+							System.exit(0);
+						}
+						else {
+							JOptionPane.showMessageDialog(AdministrationFrame.this, "Server non riavviato");
+						}
+					} 
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 	}
