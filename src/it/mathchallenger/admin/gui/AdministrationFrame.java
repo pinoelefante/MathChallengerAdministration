@@ -64,8 +64,7 @@ public class AdministrationFrame extends JFrame {
 	private JTextField modificaPassword;
 	private JTextField modificaEmail;
 	private JLabel lblNomeutenteselezionato;
-	private JTextField banID;
-	private JTextField banUsername;
+	private JTextField kickUsername;
 	private JTextField deleteID;
 	private JButton btnCaricaVersioni;
 	private JComboBox<Integer> versioniAbilitateChk;
@@ -81,13 +80,13 @@ public class AdministrationFrame extends JFrame {
 	private JButton btnCancellaUtenteByUsername;
 	private JButton btnModificaPasswordUtente;
 	private JButton btnModificaEmailUtente;
-	private JButton btnBannaUtenteID;
-	private JButton btnBannaUtenteUsername;
+	private JButton btnKickUtenteUsername;
 	private JButton btnRankingSalvaTutti;
 	private JButton btnEmailSalvaTutti;
 	private JButton btnDebugStatus;
 	private JComboBox<Boolean> cmbdebug;
 	private JButton btnRiavviaServer;
+	private JComboBox<Boolean> cmbAbilitaPostRanking;
 	/**
 	 * Create the frame.
 	 */
@@ -248,23 +247,10 @@ public class AdministrationFrame extends JFrame {
 		panel_18.add(btnModificaEmailUtente);
 		
 		JPanel panel_19 = new JPanel();
-		panel_19.setBorder(new TitledBorder(null, "Banna Utente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_19.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Esci Utente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel_19.setBounds(199, 234, 460, 89);
 		panel.add(panel_19);
 		panel_19.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		JPanel panel_21 = new JPanel();
-		panel_19.add(panel_21);
-		
-		JLabel lblId = new JLabel("ID");
-		panel_21.add(lblId);
-		
-		banID = new JTextField();
-		panel_21.add(banID);
-		banID.setColumns(10);
-		
-		btnBannaUtenteID = new JButton("OK");
-		panel_21.add(btnBannaUtenteID);
 		
 		JPanel panel_20 = new JPanel();
 		panel_19.add(panel_20);
@@ -272,12 +258,12 @@ public class AdministrationFrame extends JFrame {
 		JLabel lblUsername_3 = new JLabel("Username");
 		panel_20.add(lblUsername_3);
 		
-		banUsername = new JTextField();
-		panel_20.add(banUsername);
-		banUsername.setColumns(10);
+		kickUsername = new JTextField();
+		panel_20.add(kickUsername);
+		kickUsername.setColumns(10);
 		
-		btnBannaUtenteUsername = new JButton("OK");
-		panel_20.add(btnBannaUtenteUsername);
+		btnKickUtenteUsername = new JButton("OK");
+		panel_20.add(btnKickUtenteUsername);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Ranking", null, panel_1, null);
@@ -355,8 +341,19 @@ public class AdministrationFrame extends JFrame {
 		rankingNewSleepTimeError.setColumns(10);
 		
 		btnRankingSalvaTutti = new JButton("Salva tutti");
-		btnRankingSalvaTutti.setBounds(142, 228, 89, 23);
+		btnRankingSalvaTutti.setBounds(141, 255, 89, 23);
 		panel_1.add(btnRankingSalvaTutti);
+		
+		JLabel lblAbilitaAggiornamento = new JLabel("Abilita");
+		lblAbilitaAggiornamento.setBounds(10, 225, 46, 14);
+		panel_1.add(lblAbilitaAggiornamento);
+		
+		cmbAbilitaPostRanking = new JComboBox<Boolean>();
+		cmbAbilitaPostRanking.addItem(null);
+		cmbAbilitaPostRanking.addItem(Boolean.TRUE);
+		cmbAbilitaPostRanking.addItem(Boolean.FALSE);
+		cmbAbilitaPostRanking.setBounds(111, 222, 140, 20);
+		panel_1.add(cmbAbilitaPostRanking);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Server", null, panel_2, null);
@@ -571,11 +568,10 @@ public class AdministrationFrame extends JFrame {
 							lab.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent arg0) {
 									lblNomeutenteselezionato.setText(u_i[0]);
-									banUsername.setText(u_i[0]);
+									kickUsername.setText(u_i[0]);
 									deleteUsernameText.setText(u_i[0]);
 									deleteID.setText(u_i[1]);
 									modificaIDUtente.setText(u_i[1]);
-									banID.setText(u_i[1]);
 								}
 							});
 						}
@@ -776,6 +772,10 @@ public class AdministrationFrame extends JFrame {
 					params.add("User-Agent");
 					params.add(rankingNewUserAgent.getText().trim());
 				}
+				if(cmbAbilitaPostRanking.getSelectedItem()!=null){
+					params.add("abilita_aggiornamento");
+					params.add(""+cmbAbilitaPostRanking.getSelectedItem());
+				}
 				if(params.size()>0){
 					Messaggio m=CommunicationMessageCreator.getInstance().createRankingChangeValues(params);
 					try {
@@ -899,6 +899,22 @@ public class AdministrationFrame extends JFrame {
 					catch (IOException e) {
 						e.printStackTrace();
 					}
+				}
+			}
+		});
+		btnKickUtenteUsername.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String text=kickUsername.getText().trim();
+				Messaggio m=CommunicationMessageCreator.getInstance().createUserKick(text);
+				try {
+					comm.send(m);
+					if(CommunicationParser.getInstance().parseGeneric(m))
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente kickato");
+					else
+						JOptionPane.showMessageDialog(AdministrationFrame.this, "Utente non kickato");
+				}
+				catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
 		});

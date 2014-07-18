@@ -74,4 +74,8 @@ public class CommunicationMessageCreator {
 	public Messaggio createServerRestart() {
 		return new Messaggio("server_restart");
 	}
+
+	public Messaggio createUserKick(String text) {
+		return new Messaggio("user_kick "+text);
+	}
 }
