@@ -39,6 +39,7 @@ public class LoginFrame extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	private static Communication comm;
+	private JTextField txtHostname;
 	
 	public static void main(final String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -66,7 +67,7 @@ public class LoginFrame extends JFrame {
 			password=args[1];
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 155);
+		setBounds(100, 100, 300, 180);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -77,27 +78,37 @@ public class LoginFrame extends JFrame {
 		panel.setLayout(null);
 		
 		txt_username = new JTextField();
-		txt_username.setBounds(94, 11, 170, 20);
+		txt_username.setBounds(94, 33, 170, 20);
 		panel.add(txt_username);
 		txt_username.setColumns(10);
 		txt_username.setText(username);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(10, 14, 74, 14);
+		lblUsername.setBounds(10, 36, 74, 14);
 		panel.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(10, 49, 74, 14);
+		lblPassword.setBounds(10, 61, 74, 14);
 		panel.add(lblPassword);
 		
 		txt_password = new JPasswordField();
-		txt_password.setBounds(94, 42, 170, 20);
+		txt_password.setBounds(94, 58, 170, 20);
 		panel.add(txt_password);
 		txt_password.setText(password);
 		
 		btnLogin = new JButton("Login");
-		btnLogin.setBounds(94, 73, 89, 23);
+		btnLogin.setBounds(94, 97, 89, 23);
 		panel.add(btnLogin);
+		
+		JLabel lblHost = new JLabel("Host");
+		lblHost.setBounds(10, 11, 46, 14);
+		panel.add(lblHost);
+		
+		txtHostname = new JTextField();
+		txtHostname.setBounds(94, 8, 170, 20);
+		panel.add(txtHostname);
+		txtHostname.setColumns(10);
+		txtHostname.setText("mathchallenger.servegame.com");
 		
 		addListener();
 	}
@@ -109,6 +120,7 @@ public class LoginFrame extends JFrame {
 				if(username.length()>0 && pass.length()>0){
 					Messaggio m=CommunicationMessageCreator.getInstance().createLoginMessage(username, pass);
 					try {
+						Communication.setHostname(txtHostname.getText());
 						comm.send(m);
 						if(CommunicationParser.getInstance().parseLogin(m)){
 							JFrame frame_app=new AdministrationFrame();
